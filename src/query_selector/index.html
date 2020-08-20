@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="script.js" ></script>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <meta charset="utf-8">
+    <title>Login</title>
+    
+  </head>
+<body style="background-color: #4b5257">
+<!-- Material form contact -->
+<div class="container vertical-center">
+  <div class="card col-centered">
+
+      <h5 class="card-header info-color white-text text-center py-4">
+          <strong>Query Selector</strong>
+      </h5>
+
+      <!--Card content-->
+      <div class="card-body px-lg-5 pt-0">
+          <!-- Form -->
+          <form class="text-center" style="color: #757575;" action="#!">
+
+              <!-- Subject -->
+              <div class="m-4">
+                <span>Query for:</span>
+                <select class="mdb-select" id="query_selector" onchange="selectQueryContent(this.value);">
+                    <option disabled> Choose option </option>
+                    <option value=1 selected> Questions / Answers</option>
+                    <option value=2> Users </option>
+                </select>
+              </div>
+
+              <div id="query_content">
+                <div id ="query_question">
+                  <div class="md-form mt-3">
+                    
+                    <label class="float-left">
+                      Search Parameters
+                    </label>
+
+                    <div id="questions_content">
+                      <div>
+                        <label class="mx-3">
+                          Get all questions?: 
+                        </label>
+                        <input type="checkbox" name="" checked onclick="setVisible('question_id', !this.checked);">
+                        </input>
+                      </div>
+                    </div>
+
+                    <div id="question_id" style="display: none;">
+                      <label class="mx-3">
+                        Question ID:
+                      </label>
+                      <label class="px-3" contenteditable="true"> 0 </label>
+                    </div>
+
+                  </div>
+                </div>
+                <div id ="query_user">
+                  
+                </div>
+              </div>
+
+              <!-- Send button -->
+              <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Go</button>
+
+          </form>
+          <!-- Form -->
+
+      </div>
+
+  </div>
+</div>
+<!-- Material form contact -->
+</body>
