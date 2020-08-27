@@ -1,73 +1,57 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../script.js" ></script>
+    <script defer src="script.js" ></script>
     <link rel="stylesheet" href="styles.css" type="text/css">
     <meta charset="utf-8">
     <title>Login</title>
     
   </head>
 <body style="background-color: #4b5257">
+  <div class="container-fluid">
+    <div class="card col-centered border-primary rounded-0">
+
+        <div class="card-header bg-info text-white text-center py-4">
+          <h5><strong>User Editor</strong></h5>
+          <button type="button" class="btn btn-secondary float-right" onclick="addUser()">
+              add user
+          </button>
+        </div>
+
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0 mt-3">
+          <div id="user-list" class="list-group list-group-flush flex-column align-items-start"></div>
+        </div>
+
+    </div>
+  </div>
 <!-- Material form contact -->
-<div class="container vertical-center">
-  <div class="card col-centered">
 
-      <h5 class="card-header info-color white-text text-center py-4">
-          <strong>Contact us</strong>
-      </h5>
+<button id="removeItemModalToggle" style="display: none;" type= "button" class="btn btn-primary" data-toggle="modal" data-target="#removeItemModal">
+</button>
 
-      <!--Card content-->
-      <div class="card-body px-lg-5 pt-0">
-
-          <!-- Form -->
-          <form class="text-center" style="color: #757575;" action="#!">
-
-              <!-- Name -->
-              <div class="md-form mt-3">
-                  <label for="materialContactFormName">Name</label>
-                  <input type="text" id="materialContactFormName" class="form-control">
-              </div>
-
-              <!-- E-mail -->
-              <div class="md-form mt-3">
-                  <label for="materialContactFormEmail">E-mail</label>
-                  <input type="email" id="materialContactFormEmail" class="form-control">
-              </div>
-
-              <!-- Subject -->
-              <div class="m-4">
-                <span>Subject</span>
-                <select class="mdb-select">
-                    <option value="" disabled>Choose option</option>
-                    <option value="1" selected>Feedback</option>
-                    <option value="2">Report a bug</option>
-                    <option value="3">Feature request</option>
-                    <option value="4">Feature request</option>
-                </select>
-              </div>
-
-              <!--Message-->
-              <div class="md-form mt-3">
-                  <label for="materialContactFormMessage">Message</label>
-                  <textarea id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
-              </div>
-
-              <!-- Copy -->
-              <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="materialContactFormCopy">
-                  <label class="form-check-label" for="materialContactFormCopy">Send me a copy of this message</label>
-              </div>
-
-              <!-- Send button -->
-              <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Send</button>
-
-          </form>
-          <!-- Form -->
-
+<!-- Modal -->
+<div class="modal fade" id="removeItemModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="removeItemModalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span >&times;</span>
+        </button>
       </div>
-
+      <div id="removeItemModalBody" class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button id="removeItemModalAccept" type="button" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
   </div>
 </div>
-<!-- Material form contact -->
 </body>
