@@ -1,22 +1,4 @@
-var users = 
-[
-  {
-      "id": 10,
-      "name": "Nicolas",
-      "surname": "Zachariou",
-      "createdAt": "2020-08-04T20:57:24.465Z",
-      "updatedAt": "2020-08-04T20:57:24.465Z",
-      "researcherId": 2
-  },
-  {
-      "id": 11,
-      "name": "",
-      "surname": "",
-      "createdAt": "2020-08-25T07:33:32.989Z",
-      "updatedAt": "2020-08-25T07:33:32.989Z",
-      "researcherId": 2
-  }
-]
+var users;
 
 function selectQueryContent(value){
   switch (value){
@@ -38,21 +20,74 @@ function selectQueryContent(value){
 }
 selectQueryContent(3);
 
-/*
-let title_text = document.createElement("textarea");
-title_text.setAttribute("id","product-" + "infolist-attr-title-"+productId+"-"+listLength);
-title_text.setAttribute("style", "resize:none;");
-title_text.setAttribute("rows", "1"); 
-title_text.setAttribute("cols", "15");  
-title_text.onfocus = function(){
-  if(!this.value){
-    this.value = this.placeholder;
-  }
-};
-title_text.onblur = function(){
-  if(this.value == this.placeholder){
-    this.placeholder = this.value;
-    this.value = null;      
-  }
-};
-*/
+var page = document.getElementById("content");
+
+function loadAnswer(value, index, array){
+  let answer_card = document.createElement("div");
+  answer_card.classList.add("mt-1");
+  answer_card.classList.add("card");
+
+  let answer_body = document.createElement("div");
+  answer_body.classList.add("card-body");
+  answer_card.appendChild(answer_body);
+
+  let answer_id_container = document.createElement("div");
+  answer_id_container.classList.add("input-group");
+  answer_id_container.classList.add("mb-3");
+  let answer_id_title_container = document.createElement("div");
+  answer_id_title_container.classList.add("input-group-prepend");
+  answer_id_title_container.style = "width: 80px;";
+  answer_id_container.appendChild(answer_id_title_container);
+  let answer_id_title = document.createElement("span");
+  answer_id_title.classList.add("input-group-text");
+  answer_id_title.style = "width: 80px;";
+  answer_id_title.innerHTML = "ID: ";
+  answer_id_title_container.appendChild(answer_id_title);
+  let answer_id_input = document.createElement("label");
+  answer_id_input.innerHTML = value.id;
+  answer_id_input.classList.add("form-control");
+  answer_id_input.setAttribute("readonly", "readonly");
+  answer_id_container.appendChild(answer_id_input);
+
+  let answer_text_container = document.createElement("div");
+  answer_text_container.classList.add("input-group");
+  answer_text_container.classList.add("mb-3");
+  let answer_text_title_container = document.createElement("div");
+  answer_text_title_container.style = "width: 80px;";
+  answer_text_title_container.classList.add("input-group-prepend");
+  answer_text_container.appendChild(answer_text_title_container);
+  let answer_text_title = document.createElement("span");
+  answer_text_title.classList.add("input-group-text");
+  answer_text_title.style = "width: 80px;";
+  answer_text_title.innerHTML = "Answer: ";
+  answer_text_title_container.appendChild(answer_text_title);
+  let answer_text_input = document.createElement("input");
+  answer_text_input.style = "text-align: center;";
+  answer_text_input.placeholder = value.answer_text;
+  answer_text_input.type = "text";
+  answer_text_input.classList.add("form-control");
+  answer_text_input.setAttribute("readonly", "readonly");
+  answer_text_container.appendChild(answer_text_input);
+
+  answer_body.appendChild(answer_id_container);
+  answer_body.appendChild(answer_text_container);
+
+  page.appendChild(answer_card);
+}
+
+function loadQuery(){
+  let user_id = parseInt(document.getElementById("user_id_value").innerHTML);
+  $.ajax({
+    url: serverURL + "/answers/" + user_id,
+    type: 'GET',
+    dataType: 'json',
+    success: function(data, textStatus, xhr) {0
+      if(xhr.status === 200){
+        //console.log(data);
+        data.forEach(loadAnswer);
+      } else {
+        window.alert("couldn't delete user");
+      }
+    }
+  });
+}

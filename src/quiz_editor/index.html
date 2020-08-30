@@ -22,20 +22,19 @@
 
       <!--Card content-->
       <div class="card-body px-lg-5 pt-0">
-          <!-- Form -->
-          <form class="text-center" style="color: #757575;" action="#!">
+	      <!-- Subject -->
+	      <div class="m-3">
+	        <span>Current Quiz:</span>
+	      </div>
 
-              <!-- Subject -->
-              <div class="m-3">
-                <span>Current Quiz:</span>
-              </div>
+	      <div id="quiz_editor" class="accordion"></div>
+        <button type="button" class="btn btn-secondary mt-2" onclick="addQuestion()">
+            add question
+        </button>
 
-              <div id="quiz_editor" class="accordion">                
-              </div>
-
-          </form>
-          <!-- Form -->
-
+        <button type="button" class="btn btn-primary mt-2 float-right" onclick="saveQuestions()">
+            save changes
+        </button>
       </div>
 
   </div>

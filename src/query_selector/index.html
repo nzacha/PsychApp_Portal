@@ -1,8 +1,9 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../script.js" ></script>
     <script defer src="script.js" ></script>
     <link rel="stylesheet" href="styles.css" type="text/css">
@@ -22,7 +23,7 @@
       <!--Card content-->
       <div class="card-body px-lg-5 pt-0">
           <!-- Form -->
-          <form class="text-center" style="color: #757575;" action="#!">
+          <form class="text-center" style="color: #757575;" onsubmit="loadQuery(); return false">
 
               <!-- Subject -->
               <div class="m-4">
@@ -30,7 +31,7 @@
                 <select class="mdb-select" id="query_selector" onchange="selectQueryContent(this.value);" disabled>
                     <option disabled> Choose option </option>
                     <option value=1> All answers</option>
-                    <option value=2> Question</option>
+                    <option value=2> answer</option>
                     <option value=3 selected> User</option>
                 </select>
               </div>
@@ -47,9 +48,9 @@
                     <div id="questions_content">
 	                  <div id="question_id">
 	                    <label class="mx-3">
-	                      Question ID:
+	                      answer ID:
 	                    </label>
-	                    <label class="px-3" contenteditable="true"> 0 </label>
+	                    <label class="px-3" contenteditable="true">0</label>
 	                  </div>
                     </div>
                     
@@ -58,12 +59,17 @@
 	                    <label class="mx-3">
 	                      User ID:
 	                    </label>
-	                    <label class="px-3" contenteditable="true"> 0 </label>
+	                    <label id="user_id_value"class="px-3" contenteditable="true">0</label>
 	                  </div>
                     </div>
                   </div>	
               </div>
-              
+
+              <div id="content">
+              	
+              </div>
+
+              <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Send</button>
           </form>
           <!-- Form -->
 
