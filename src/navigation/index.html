@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script defer src="script.js" ></script>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <meta charset="utf-8">
+    <title>Login</title>
+    
+  </head>
+<body style="background-color: #4b5257">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">PsychApp Portal</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown" >
+        <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+          Query Selector (work in progress)
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item disabled" href="#">Search for all Answers</a>
+          <a class="dropdown-item disabled" href="#">Search by Question ID</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#query_selector" onclick="loadHTMLFrom('../query_selector/index')">Search by User ID</a>
+        </div>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#quiz_editor" onclick="loadHTMLFrom('../query_selector/index')">Query Selector <span class="sr-only">(current)</span></a>
+      </li>
+   	  <li class="nav-item">
+        <a class="nav-link" href="#quiz_editor" onclick="loadHTMLFrom('../quiz_editor/index')">Quiz Editor <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#user_editor" onclick="loadHTMLFrom('../user_editor/index')">User Editor</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#account_editor" onclick="loadHTMLFrom('../account_editor/index')">Account / Study Editor</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+  <div id="content" style="margin-top: 50px;">
+  	
+  </div>
+</body>
