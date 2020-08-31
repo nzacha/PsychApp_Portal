@@ -3,7 +3,9 @@ var users;
 var userList = document.getElementById("user-list");
 var modalShowButton = document.getElementById("removeItemModalToggle");
 
+var count=0;
 function loadUser(value, index, array){
+  index = ++count;
   let user = document.createElement("div");
   user.classList.add("list-group-item");
   user.classList.add("w-100");
@@ -15,7 +17,7 @@ function loadUser(value, index, array){
   user_id.classList.add("col");
   user_id.classList.add("changed");
   //user_id.innerHTML = "ID) ";
-  let user_id_value = document.createElement("span");
+  let user_id_value = document.createElement("label");
   user_id_value.innerHTML = value.id;
   user_id_value.id = "user_id_value_"+index;
   user_id_value.classList.add("changed");
@@ -155,7 +157,7 @@ function deleteUser(userObj, user){
   };  
 }
 
-function saveUser(value, index, array){
+function saveUser(index){
   let id_input = document.getElementById("user_id_value_"+index);
   let name_input = document.getElementById("user_name_value_"+index);
   let surname_input = document.getElementById("user_surname_value_"+index);
@@ -190,6 +192,10 @@ function saveUser(value, index, array){
     });
 }
 
-function saveUsers(){
-  userList.childNodes.forEach(saveUser);
+function saveUsers(){ 
+  for(var i=1; i<=count; i++){
+    let id_input = document.getElementById("user_id_value_" +i);
+    if(id_input)
+      saveUser(i);
+  }
 }

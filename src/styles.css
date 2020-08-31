@@ -74,23 +74,27 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.input .changed {
-  color: #000000;
-  font-weight: bold;  
+textarea:focus, input:focus {
+    color: #ff0000;
 }
+
 .changed {
-  color: #000000;
   font-weight: bold;  
 }
 
 .info-text {
-  color: #4b5257;
+  color: #03a0a8;
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
 
-.text-right{
+.text-right {
   text-align: right;
+}
+
+.compact{
+  margin: 0px;
+  padding: 0px;
 }

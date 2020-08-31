@@ -3,13 +3,15 @@ var quiz;
 var page = document.getElementById("quiz_editor");
 var modalShowButton = document.getElementById("removeItemModalToggle");
 
+var count = 0;
 function loadQuestion(value, index, array){
+  index = ++count;
   let question = document.createElement("div");
   question.classList.add("card");
   question.id = "question_"+index;
 
   let question_header = document.createElement("div");
-  question_header.id = "header_"+index;
+  question_header.id = "header_"+value.id;
   question_header.classList.add("card-header");
   question_header.classList.add("mt-1");
 
@@ -22,8 +24,9 @@ function loadQuestion(value, index, array){
   question_title_button.setAttribute("type", "button");
   question_title_button.setAttribute("data-toggle", "collapse");
   question_title_button.setAttribute("data-target", "#collapse_"+index);
-  question_title_button.innerHTML = "Question "+ (index+1);
+  question_title_button.innerHTML = "Question "+ (index);
   question_title_button.classList.add("info-text");
+  question_title_button.classList.add("changed");
 
   question_title.appendChild(question_title_button);
   question_header.appendChild(question_title);
@@ -40,7 +43,7 @@ function loadQuestion(value, index, array){
   question_delete_button.setAttribute("data-target", "#removeItemModal");
   question_delete_button.onclick = function(event){
     event.stopPropagation();
-    removeQuestion(value, question);
+    removeQuestion(value, parseInt(question_title_button.innerHTML.split(' ')[1]), question);
     modalShowButton.click();
   };
   question_title.appendChild(question_delete_button);
@@ -49,7 +52,7 @@ function loadQuestion(value, index, array){
   question_body_container.id = "collapse_"+index;
   question_body_container.classList.add("mt-1");
   question_body_container.classList.add("collapse");
-  if(index == 0)
+  if(index == 1)
     question_body_container.classList.add("show");
   question_body_container.setAttribute("data-parent", "#quiz_editor");
   
@@ -65,8 +68,9 @@ function loadQuestion(value, index, array){
   question_id_title_container.classList.add("input-group-prepend");
   question_id_title_container.style = "width: 70px;";
   question_id_container.appendChild(question_id_title_container);
-  let question_id_title = document.createElement("span");
+  let question_id_title = document.createElement("label");
   question_id_title.classList.add("input-group-text");
+  question_id_title.classList.add("changed");
   question_id_title.style = "width: 70px;";
   question_id_title.innerHTML = "ID: ";
   question_id_title_container.appendChild(question_id_title);
@@ -84,8 +88,9 @@ function loadQuestion(value, index, array){
   question_text_title_container.style = "width: 70px;";
   question_text_title_container.classList.add("input-group-prepend");
   question_text_container.appendChild(question_text_title_container);
-  let question_text_title = document.createElement("span");
+  let question_text_title = document.createElement("label");
   question_text_title.classList.add("input-group-text");
+  question_text_title.classList.add("changed");
   question_text_title.style = "width: 70px;";
   question_text_title.innerHTML = "Text: ";
   question_text_title_container.appendChild(question_text_title);
@@ -117,8 +122,9 @@ function loadQuestion(value, index, array){
   question_type_title_container.classList.add("input-group-prepend");
   question_type_title_container.style = "width: 70px;";
   question_type_container.appendChild(question_type_title_container);
-  let question_type_title = document.createElement("span");
+  let question_type_title = document.createElement("label");
   question_type_title.classList.add("input-group-text");
+  question_type_title.classList.add("changed");
   question_type_title.style = "width: 70px;";
   question_type_title.innerHTML = "Type: ";
   question_type_title_container.appendChild(question_type_title);
@@ -153,8 +159,9 @@ function loadQuestion(value, index, array){
   question_levels_title_container.classList.add("input-group-prepend");
   question_levels_title_container.style = "width: 70px;";
   question_levels_container.appendChild(question_levels_title_container);
-  let question_levels_title = document.createElement("span");
+  let question_levels_title = document.createElement("label");
   question_levels_title.classList.add("input-group-text");
+  question_levels_title.classList.add("changed");
   question_levels_title.style = "width: 70px;";
   question_levels_title.innerHTML = "Levels: ";
   question_levels_title_container.appendChild(question_levels_title);
@@ -188,8 +195,9 @@ function loadQuestion(value, index, array){
   question_options_container.classList.add("container");
   let question_options = document.createElement("div");
   question_options.classList.add("card");  
-  let question_options_header = document.createElement("div");
+  let question_options_header = document.createElement("label");
   question_options_header.classList.add("card-header");
+  question_options_header.classList.add("changed");
   question_options_header.innerHTML = "Question Options:";
   let question_options_body = document.createElement("div");
   question_options_body.classList.add("card-body");
@@ -238,14 +246,15 @@ function loadQuestion(value, index, array){
     question_levels_combobox.selectedIndex = 2;
   else if(value.levels == "5")
     question_levels_combobox.selectedIndex = 3;
-
 }
 
 function loadQuestionOptions(question_options_container, options){
-  options.sort(compareFunction);
-  for (var i = 0; i < options.length; i++) {
-    addQuestionOption(question_options_container, options[i], (i+1));
-  }
+	if(!options)
+		return;
+	options.sort(compareFunction);
+	for (var i = 0; i < options.length; i++) {
+	    addQuestionOption(question_options_container, options[i], (i));
+	}
 }
 
 function questionTypeOnChange(id, value){
@@ -270,8 +279,9 @@ function addQuestionOption(question_options, data, index){
   question_text_title_container.style = "width: 50px;";
   question_text_title_container.classList.add("input-group-prepend");
   question_text_container.appendChild(question_text_title_container);
-  let question_text_title = document.createElement("span");
+  let question_text_title = document.createElement("label");
   question_text_title.classList.add("input-group-text");
+  question_text_title.classList.add("changed");
   question_text_title.style = "width: 50px;";
   question_text_title.innerHTML = data.id;
   question_text_title.id = "question_option_"+data.questionId+"_"+index;
@@ -364,7 +374,7 @@ function sendAddQuestion(){
     success: function(data, textStatus, xhr) {
       if(xhr.status === 200){
         //console.log(data);     
-        loadQuestion(data, page.childElementCount);
+        loadQuestion(data);
       } else {
         window.alert("couldn't add user");
       }
@@ -391,10 +401,10 @@ function loadQuiz(){
 }
 loadQuiz();
 
-function removeQuestion(value, questionObj){
+function removeQuestion(value, index, questionObj){
   let modal = document.getElementById("removeItemModal");
   let modalTItle = document.getElementById("removeItemModalTitle");
-  modalTItle.innerHTML = "Do you want to delete question " + value.id +"?";
+  modalTItle.innerHTML = "Do you want to delete question: " + (index) +" with id: "+value.id+"?";
   let modalBody = document.getElementById("removeItemModalBody");
   modalBody.innerHTML = value.question_text;
   let modalAccept = document.getElementById("removeItemModalAccept");
@@ -435,7 +445,7 @@ function sendUpdateOption(node, id, value){
     });
 }
 
-function saveQuestion(value, index, array){
+function saveQuestion(index){
   let id_input = document.getElementById("question_id_" +index);
   let text_input = document.getElementById("question_text_" +index);
   let type_input = document.getElementById("question_type_" +index);
@@ -453,8 +463,8 @@ function saveQuestion(value, index, array){
     changes.levels = levels_input.value; 
   }  
 
-  for(var i=0; i<question_options.childElementCount; i++){    
-    var option_id = document.getElementById("question_option_" + id_input.innerHTML+"_"+(i+1));
+  for(var i=0; i<question_options.childElementCount; i++){      
+    var option_id = document.getElementById("question_option_" + id_input.innerHTML+"_"+(i));
     var option_input = document.getElementById("question_option_value_" + option_id.innerHTML);
     if(option_input.classList.contains("changed"))
       sendUpdateOption(option_input, option_id.innerHTML, option_input.value);
@@ -477,7 +487,7 @@ function saveQuestion(value, index, array){
           }
           if(changes.question_type)
             type_input.classList.remove("changed");
-          if(changes.levels_input)
+          if(changes.levels)
             levels_input.classList.remove("changed");
         } else {
           window.alert("couldn't update question");
@@ -487,5 +497,9 @@ function saveQuestion(value, index, array){
 }
 
 function saveQuestions(){
-  page.childNodes.forEach(saveQuestion);
+	for(var i=1; i<=count; i++){
+		let id_input = document.getElementById("question_id_" +i);
+		if(id_input)
+			saveQuestion(i);
+	}
 }

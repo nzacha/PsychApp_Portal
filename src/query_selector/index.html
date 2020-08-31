@@ -6,6 +6,8 @@
     <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../script.js" ></script>
     <script defer src="script.js" ></script>
+    <link rel="stylesheet" href="../styles.css" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <meta charset="utf-8">
     <title>Query Selector</title>
     
@@ -15,9 +17,16 @@
 <div class="container-fluid">
   <div class="card col-centered border-primary rounded">
 
-      <h5 class="card-header bg-info text-white text-center py-4">
-          <strong>Query Selector</strong>
-      </h5>
+      <div class="card-header p-0">
+          <div class="bg-info text-white text-center py-4">
+              <div>
+                <label class="compact">
+                  <h3 class="compact"><i class="fa fa-inbox"></i> Query Selector</h3>
+                </label>
+              </div>
+              <label class="m-0">View your user's answers</label>
+          </div>
+      </div>
 
       <!--Card content-->
       <div class="card-body px-lg-5 pt-0">
@@ -26,7 +35,7 @@
 
               <!-- Subject -->
               <div class="m-4">
-                <span>Search by:</span>
+                <label>Search by:</label>
                 <select class="mdb-select" id="query_selector" onchange="selectQueryContent(this.value);" disabled>
                     <option disabled> Choose option </option>
                     <option value=1> All answers</option>
@@ -58,7 +67,7 @@
 	                    <label class="mx-3">
 	                      User ID:
 	                    </label>
-	                    <label id="user_id_value"class="px-3" contenteditable="true">0</label>
+	                    <span id="user_id_value"class="px-3 py-1" contenteditable="true">0</span>
 	                  </div>
                     </div>
                   </div>	

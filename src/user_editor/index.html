@@ -6,6 +6,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../script.js" ></script>
     <link rel="stylesheet" href="../styles.css" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <script defer src="script.js" ></script>
     <meta charset="utf-8">
     <title>User Editor</title>
@@ -14,28 +15,35 @@
 <body style="background-color: #4b5257">
   <div class="container-fluid">
     <div class="card col-centered border-primary rounded">
-
-        <div class="card-header bg-info text-white text-center py-4">
-          <h5><strong>User Editor</strong></h5>
-        </div>
+      
+      <div class="card-header p-0">
+          <div class="bg-info text-white text-center py-4">
+              <div>
+                <label class="compact">
+                  <h3 class="compact"><i class="fa fa-user-friends"></i> User Editor</h3>
+                </label>
+              </div>
+              <label class="m-0">Edit your user details and Add users</label>
+          </div>
+      </div>
 
         <!--Card content-->
         <div class="card-body px-lg-5 pt-0 mt-3">
           <div class="list-group list-group-flush flex-column my-2">
             <div class="list-group-item w-100">
               <div class="row">
-                <div class="col changed">
+                <label class="col changed">
                   ID                
-                </div>
-                <div class="col changed text-center">
+                </label>
+                <label class="col changed text-center">
                   Name
-                </div>
-                <div class="col changed text-center">
+                </label>
+                <label class="col changed text-center">
                   Surname
-                </div>              
-                <div class="col changed text-right">
+                </label>              
+                <label class="col changed text-right">
                   Delete
-                </div>
+                </label>
               </div>
             </div>
              <div id="user-list"></div>
