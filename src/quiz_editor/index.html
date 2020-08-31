@@ -1,19 +1,3 @@
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="../script.js" ></script>
-    <script defer src="script.js" ></script>
-    <link rel="stylesheet" href="../styles.css" type="text/css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    <meta charset="utf-8">
-    <title>Quiz Editor</title>
-    
-  </head>
-<body style="background-color: #4b5257">
-<!-- Material form contact -->
 <div class="container-fluid">
   <div class="card col-centered border-primary rounded">
 
@@ -46,30 +30,28 @@
       </div>
 
   </div>
-</div>
-<!-- Material form contact -->
 
-<button id="removeItemModalToggle" style="display: none;" type= "button" class="btn btn-primary" data-toggle="modal" data-target="#removeItemModal">
-</button>
-<!-- Modal -->
-<div class="modal fade" id="removeItemModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="removeItemModalTitle"></h5>
-        <button type="button" class="close" data-dismiss="modal">
-          <span >&times;</span>
-        </button>
-      </div>
-      <div id="removeItemModalBody" class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button id="removeItemModalAccept" type="button" class="btn btn-danger">Delete</button>
+  <button id="removeItemModalToggle" style="display: none;" type= "button" class="btn btn-primary" data-toggle="modal" data-target="#removeItemModal">
+  </button>
+  <!-- Modal -->
+  <div class="modal fade" id="removeItemModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="removeItemModalTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span >&times;</span>
+          </button>
+        </div>
+        <div id="removeItemModalBody" class="modal-body text-center changed">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button id="removeItemModalAccept" type="button" class="btn btn-danger">Delete</button>
+        </div>
       </div>
     </div>
   </div>
+  
 </div>
-
-</body>
