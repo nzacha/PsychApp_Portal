@@ -15,7 +15,7 @@ function setVisible(item_id, value){
 var usernameField = document.getElementById("username_field");
 var passwordField = document.getElementById("password_field");
 
-const serverURL = "http://localhost:5050";
+const serverURL = "http://109.110.252.231:5050";
 var researcher;
 
 function authenticateUser(){

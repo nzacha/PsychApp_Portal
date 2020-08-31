@@ -74,6 +74,23 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.changed{
+.input .changed {
+  color: #000000;
   font-weight: bold;  
+}
+.changed {
+  color: #000000;
+  font-weight: bold;  
+}
+
+.info-text {
+  color: #4b5257;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-right{
+  text-align: right;
 }

@@ -13,17 +13,20 @@ function loadUser(value, index, array){
 
   let user_id = document.createElement("div");
   user_id.classList.add("col");
-  user_id.innerHTML = "ID) ";
+  user_id.classList.add("changed");
+  //user_id.innerHTML = "ID) ";
   let user_id_value = document.createElement("span");
   user_id_value.innerHTML = value.id;
   user_id_value.id = "user_id_value_"+index;
+  user_id_value.classList.add("changed");
   user_id.appendChild(user_id_value);
   user_info.appendChild(user_id);
 
   let user_name = document.createElement("div");
-  user_name.classList.add("col-4");
+  user_name.classList.add("col");
+  user_name.classList.add("float-left");
   user_name.style = "text-align:center;"
-  user_name.innerHTML = "Name: ";
+  //user_name.innerHTML = "Name: ";
   let user_name_value = document.createElement("span");
   if(value.name === "")
     user_name_value.innerHTML = "--";
@@ -40,9 +43,9 @@ function loadUser(value, index, array){
   user_info.appendChild(user_name);
 
   let user_surname = document.createElement("div");
-  user_surname.classList.add("col-4");
+  user_surname.classList.add("col");
   user_surname.style = "text-align:center;"
-  user_surname.innerHTML = "Surname: ";
+  //user_surname.innerHTML = "Surname: ";
   let user_surname_value = document.createElement("span");
   if(value.name === "")
     user_surname_value.innerHTML = "--";
@@ -87,7 +90,7 @@ function compareFunction(obj1, obj2){
 
 function loadUsers(){
   $.ajax({
-      url: serverURL + "/users",
+      url: serverURL + "/users/MyUsers/"+JSON.parse(localStorage.getItem("RESEARCHER")).id,
       type: 'GET',
       dataType: 'json', // added data type
       success: function(res) {
@@ -116,7 +119,7 @@ function addUser(){
     success: function(data, textStatus, xhr) {0
       if(xhr.status === 200){
         dummyUser.id = data.id;
-        loadUser(dummyUser);
+        loadUser(dummyUser, userList.childElementCount);
       } else {
         window.alert("couldn't add user");
       }
@@ -165,7 +168,7 @@ function saveUser(value, index, array){
   if (surname_input.classList.contains("changed")){
     changes.surname = surname_input.innerHTML; 
   }  
-  console.log(changes);
+  //console.log(changes);
   if(Object.keys(changes).length === 0)
     return;
 

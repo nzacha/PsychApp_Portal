@@ -23,6 +23,7 @@ function loadQuestion(value, index, array){
   question_title_button.setAttribute("data-toggle", "collapse");
   question_title_button.setAttribute("data-target", "#collapse_"+index);
   question_title_button.innerHTML = "Question "+ (index+1);
+  question_title_button.classList.add("info-text");
 
   question_title.appendChild(question_title_button);
   question_header.appendChild(question_title);
@@ -54,6 +55,7 @@ function loadQuestion(value, index, array){
   
   let question_body = document.createElement("div");
   question_body.classList.add("card-body");
+  question_body.classList.add("form-group");
   question_body_container.appendChild(question_body);
 
   let question_id_container = document.createElement("div");
@@ -89,17 +91,19 @@ function loadQuestion(value, index, array){
   question_text_title_container.appendChild(question_text_title);
   let question_text_input = document.createElement("input");
   question_text_input.id = "question_text_"+index;
-  question_text_input.style = "text-align: center;";
+  //question_text_input.style = "text-align: center;";
   question_text_input.placeholder = value.question_text;
   question_text_input.onfocus = function(){
     if(!this.value){
-      this.value = this.placeholder;
+      this.value = this.placeholder;      
     }
   };
   question_text_input.onblur = function(){
     if(this.value == this.placeholder){
       this.placeholder = this.value;
       this.value = null;      
+    } else if(!this.classList.contains("changed")){
+      this.classList.add("changed");
     }
   };
   question_text_input.type = "text";
@@ -166,7 +170,7 @@ function loadQuestion(value, index, array){
   question_levels_option_disabled.innerHTML = "Choose option";
   let question_levels_option_0 = document.createElement("option");
   question_levels_option_0.value = "0";
-  question_levels_option_0.innerHTML = "NO levels";
+  question_levels_option_0.innerHTML = "% Percentage";
   let question_levels_option_3 = document.createElement("option");
   question_levels_option_3.value = "3";
   question_levels_option_3.innerHTML = "3 levels";  
@@ -179,20 +183,51 @@ function loadQuestion(value, index, array){
   question_levels_combobox.appendChild(question_levels_option_3);
   question_levels_combobox.appendChild(question_levels_option_5);
 
+  let question_options_container = document.createElement("div");
+  question_options_container.id = "question_options_"+index;
+  question_options_container.classList.add("container");
   let question_options = document.createElement("div");
+  question_options.classList.add("card");  
+  let question_options_header = document.createElement("div");
+  question_options_header.classList.add("card-header");
+  question_options_header.innerHTML = "Question Options:";
+  let question_options_body = document.createElement("div");
+  question_options_body.classList.add("card-body");
+  question_options_body.classList.add("form-group");
+  question_options_body.style = "padding-bottom: 0px";
+  question_options_body.id = "question_options_body_list_"+index;
+  loadQuestionOptions(question_options_body, value.question_options);
+
+  let question_options_footer = document.createElement("div");
+  question_options_footer.classList.add("card-footer");
+
+  let add_question_option = document.createElement("button");
+  add_question_option.classList.add("btn");
+  add_question_option.classList.add("btn-secondary");
+  add_question_option.innerHTML="+";
+  add_question_option.onclick = function(){
+    sendAddQuestioOption(question_options_body, value.id, document.getElementById("question_options_body_list_"+index).childElementCount);
+  };  
+  question_options_footer.appendChild(add_question_option);
+
+  question_options.appendChild(question_options_header);
+  question_options.appendChild(question_options_body);
+  question_options.appendChild(question_options_footer);
+  question_options_container.appendChild(question_options);
 
   question_body.appendChild(question_id_container);
   question_body.appendChild(question_text_container);
   question_body.appendChild(question_type_container);
   question_body.appendChild(question_levels_container);
-  question_body.appendChild(question_options);
+  question_body.appendChild(question_options_container);
 
   question.appendChild(question_body_container);
   page.appendChild(question);
 
-  if(value.question_type == "Text")
+  if(value.question_type == "Text"){
     question_type_combobox.selectedIndex = 1;
-  else if(value.question_type == "Slider"){
+    questionTypeOnChange(index, "Text");
+  }else if(value.question_type == "Slider"){
     question_type_combobox.selectedIndex = 2;
     questionTypeOnChange(index, "Slider");
   }
@@ -206,16 +241,105 @@ function loadQuestion(value, index, array){
 
 }
 
+function loadQuestionOptions(question_options_container, options){
+  options.sort(compareFunction);
+  for (var i = 0; i < options.length; i++) {
+    addQuestionOption(question_options_container, options[i], (i+1));
+  }
+}
+
 function questionTypeOnChange(id, value){
   switch (value){
     case "Text":
+      setVisible("question_options_"+id, true);
       setVisible("levels_container_"+id, false);
     break;
     case "Slider":
+      setVisible("question_options_"+id, false);
       setVisible("levels_container_"+id, "flex");
     break;
     default:
   }
+}
+
+function addQuestionOption(question_options, data, index){
+  let question_text_container = document.createElement("div");
+  question_text_container.classList.add("input-group");
+  question_text_container.classList.add("mb-3");
+  let question_text_title_container = document.createElement("div");
+  question_text_title_container.style = "width: 50px;";
+  question_text_title_container.classList.add("input-group-prepend");
+  question_text_container.appendChild(question_text_title_container);
+  let question_text_title = document.createElement("span");
+  question_text_title.classList.add("input-group-text");
+  question_text_title.style = "width: 50px;";
+  question_text_title.innerHTML = data.id;
+  question_text_title.id = "question_option_"+data.questionId+"_"+index;
+  question_text_title_container.appendChild(question_text_title);
+  let question_text_input = document.createElement("input");
+  question_text_input.id = "question_option_value_"+ data.id;
+  question_text_input.placeholder = data.option;
+  question_text_input.onfocus = function(){
+    if(!this.value){
+      this.value = this.placeholder;
+    }
+  };
+  question_text_input.onblur = function(){
+    if(this.value == this.placeholder){
+      this.placeholder = this.value;
+      this.value = null;      
+    }else if(!this.classList.contains("changed")){
+      this.classList.add("changed");
+    }
+  };
+  question_text_input.type = "text";
+  question_text_input.classList.add("form-control");
+  question_text_container.appendChild(question_text_input);
+  let option_delete_container = document.createElement("div");
+  option_delete_container.classList.add("input-group-append");
+  question_text_container.appendChild(option_delete_container);
+  let option_text = document.createElement("button");
+  option_text.classList.add("input-group-text");
+  option_text.classList.add("btn");
+  option_text.classList.add("btn-danger");
+  option_text.innerHTML = "X";
+  option_text.onclick = function(){
+    sendDeleteQuestionOption(question_text_container, data.id);
+  };  
+  option_delete_container.appendChild(option_text);
+
+  question_options.appendChild(question_text_container);
+}
+
+function sendDeleteQuestionOption(node, id){
+  $.ajax({
+      url: serverURL + "/questions/options/" + id,
+      type: 'DELETE',
+      dataType: 'json',
+      success: function(data, textStatus, xhr) {0
+        if(xhr.status === 200){
+          node.parentNode.removeChild(node);
+        } else {
+          window.alert("couldn't delete question option");
+        }
+      }
+  });    
+}
+
+function sendAddQuestioOption(question_options, id, index){
+  $.ajax({
+    url: serverURL + "/questions/options/" + id,
+    type: 'POST',
+    dataType: 'json',
+    success: function(data, textStatus, xhr) {
+      if(xhr.status === 200){
+        //console.log(data);     
+        addQuestionOption(question_options, data, index);
+      } else {
+        window.alert("couldn't add question option");
+      }
+    }
+  });
 }
 
 function compareFunction(obj1, obj2){
@@ -295,11 +419,28 @@ function sendDeleteQuestion(id, node){
   });
 }
 
+function sendUpdateOption(node, id, value){
+    $.ajax({
+      url: serverURL + "/questions/options/" + parseInt(id),
+      type: 'PATCH',
+      dataType: 'json',
+      data: {"question_option": value},
+      success: function(data, textStatus, xhr) {
+        if(xhr.status === 200){
+          node.classList.remove("changed");
+        } else {
+          window.alert("couldn't update option");
+        }
+      }
+    });
+}
+
 function saveQuestion(value, index, array){
   let id_input = document.getElementById("question_id_" +index);
   let text_input = document.getElementById("question_text_" +index);
   let type_input = document.getElementById("question_type_" +index);
   let levels_input = document.getElementById("question_levels_" +index);
+  let question_options = document.getElementById("question_options_body_list_"+index);
 
   let changes = {};
   if (text_input.value != ""){
@@ -311,6 +452,14 @@ function saveQuestion(value, index, array){
   if (levels_input.classList.contains("changed")){
     changes.levels = levels_input.value; 
   }  
+
+  for(var i=0; i<question_options.childElementCount; i++){    
+    var option_id = document.getElementById("question_option_" + id_input.innerHTML+"_"+(i+1));
+    var option_input = document.getElementById("question_option_value_" + option_id.innerHTML);
+    if(option_input.classList.contains("changed"))
+      sendUpdateOption(option_input, option_id.innerHTML, option_input.value);
+  }
+  
   if(Object.keys(changes).length === 0)
     return;
   //console.log(changes);
@@ -331,7 +480,7 @@ function saveQuestion(value, index, array){
           if(changes.levels_input)
             levels_input.classList.remove("changed");
         } else {
-          window.alert("couldn't delete user");
+          window.alert("couldn't update question");
         }
       }
     });

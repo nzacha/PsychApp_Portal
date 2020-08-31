@@ -13,7 +13,7 @@
 <body style="background-color: #4b5257">
 <!-- Material form contact -->
 <div class="container-fluid">
-  <div class="card col-centered border-primary rounded-0">
+  <div class="card col-centered border-primary rounded">
 
       <h5 class="card-header bg-info text-white text-center py-4">
           <strong>Query Selector</strong>
@@ -64,12 +64,17 @@
                   </div>	
               </div>
 
+              <button style="display:none;" class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Send</button>
+              
+              <div class="container text-right">
+                <label id="query_result"></label>
+              </div>
+
+              <button class="btn btn-info mb-4" type="submit">Send</button>          
+
               <div id="content">
               	
               </div>
-
-              <button style="display:none;" class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Send</button>
-              <button class="btn btn-info mt-2" type="submit">Send</button>
           </form>
           <!-- Form -->
 

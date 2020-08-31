@@ -13,7 +13,7 @@
   </head>
 <body style="background-color: #4b5257">
   <div class="container-fluid">
-    <div class="card col-centered border-primary rounded-0">
+    <div class="card col-centered border-primary rounded">
 
         <div class="card-header bg-info text-white text-center py-4">
           <h5><strong>User Editor</strong></h5>
@@ -21,7 +21,25 @@
 
         <!--Card content-->
         <div class="card-body px-lg-5 pt-0 mt-3">
-          <div id="user-list" class="list-group list-group-flush flex-column align-items-start"></div>
+          <div class="list-group list-group-flush flex-column my-2">
+            <div class="list-group-item w-100">
+              <div class="row">
+                <div class="col changed">
+                  ID                
+                </div>
+                <div class="col changed text-center">
+                  Name
+                </div>
+                <div class="col changed text-center">
+                  Surname
+                </div>              
+                <div class="col changed text-right">
+                  Delete
+                </div>
+              </div>
+            </div>
+             <div id="user-list"></div>
+          </div>           
           <button type="button" class="btn btn-secondary mt-2" onclick="addUser()">
               add user
           </button>

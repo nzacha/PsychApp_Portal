@@ -36,11 +36,11 @@ function loadAnswer(value, index, array){
   answer_id_container.classList.add("mb-3");
   let answer_id_title_container = document.createElement("div");
   answer_id_title_container.classList.add("input-group-prepend");
-  answer_id_title_container.style = "width: 80px;";
+  answer_id_title_container.style = "width: 90px;";
   answer_id_container.appendChild(answer_id_title_container);
   let answer_id_title = document.createElement("span");
   answer_id_title.classList.add("input-group-text");
-  answer_id_title.style = "width: 80px;";
+  answer_id_title.style = "width: 90px;";
   answer_id_title.innerHTML = "Question: ";
   answer_id_title_container.appendChild(answer_id_title);
   let answer_id_input = document.createElement("label");
@@ -53,18 +53,17 @@ function loadAnswer(value, index, array){
   answer_text_container.classList.add("input-group");
   answer_text_container.classList.add("mb-3");
   let answer_text_title_container = document.createElement("div");
-  answer_text_title_container.style = "width: 80px;";
+  answer_text_title_container.style = "width: 90px;";
   answer_text_title_container.classList.add("input-group-prepend");
   answer_text_container.appendChild(answer_text_title_container);
   let answer_text_title = document.createElement("span");
   answer_text_title.classList.add("input-group-text");
-  answer_text_title.style = "width: 80px;";
+  answer_text_title.style = "width: 90px;";
   answer_text_title.innerHTML = "Answer: ";
   answer_text_title_container.appendChild(answer_text_title);
-  let answer_text_input = document.createElement("input");
+  let answer_text_input = document.createElement("label");
   answer_text_input.style = "text-align: center;";
   answer_text_input.placeholder = value.text;
-  answer_text_input.type = "text";
   answer_text_input.classList.add("form-control");
   answer_text_input.setAttribute("readonly", "readonly");
   answer_text_container.appendChild(answer_text_input);
@@ -80,16 +79,18 @@ function loadQuery(){
   let user_id = parseInt(document.getElementById("user_id_value").innerHTML);  
   //console.log(user_id);
   $.ajax({
-    url: serverURL + "/answers/" + user_id,
+    url: serverURL + "/answers/" + user_id + "/"+ JSON.parse(localStorage.getItem("RESEARCHER")).id,
     type: 'GET',
     dataType: 'json',
     success: function(data, textStatus, xhr) {      
       if(xhr.status === 200){
         //console.log(data);
-        if(Object.keys(data).length === 0)
-          window.alert("no answers found");
-        else
+          document.getElementById("query_result").innerHTML = Object.keys(data).length + " results found";
+        if(Object.keys(data).length === 0){          
+          //window.alert("no answers found");
+        }else{
           data.forEach(loadAnswer);        
+        }
       } else {
         window.alert("an error occured");
       }
