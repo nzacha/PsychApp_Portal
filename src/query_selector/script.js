@@ -41,10 +41,10 @@ function loadAnswer(value, index, array){
   let answer_id_title = document.createElement("span");
   answer_id_title.classList.add("input-group-text");
   answer_id_title.style = "width: 80px;";
-  answer_id_title.innerHTML = "ID: ";
+  answer_id_title.innerHTML = "Question: ";
   answer_id_title_container.appendChild(answer_id_title);
   let answer_id_input = document.createElement("label");
-  answer_id_input.innerHTML = value.id;
+  answer_id_input.innerHTML = value.question.question_text;
   answer_id_input.classList.add("form-control");
   answer_id_input.setAttribute("readonly", "readonly");
   answer_id_container.appendChild(answer_id_input);
@@ -63,7 +63,7 @@ function loadAnswer(value, index, array){
   answer_text_title_container.appendChild(answer_text_title);
   let answer_text_input = document.createElement("input");
   answer_text_input.style = "text-align: center;";
-  answer_text_input.placeholder = value.answer_text;
+  answer_text_input.placeholder = value.text;
   answer_text_input.type = "text";
   answer_text_input.classList.add("form-control");
   answer_text_input.setAttribute("readonly", "readonly");
