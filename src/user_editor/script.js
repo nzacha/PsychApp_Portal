@@ -16,6 +16,7 @@ function loadUser(value, index, array){
   user_id.innerHTML = "ID) ";
   let user_id_value = document.createElement("span");
   user_id_value.innerHTML = value.id;
+  user_id_value.id = "user_id_value_"+index;
   user_id.appendChild(user_id_value);
   user_info.appendChild(user_id);
 
@@ -28,8 +29,13 @@ function loadUser(value, index, array){
     user_name_value.innerHTML = "--";
   else
     user_name_value.innerHTML = value.name;
+  user_name_value.id = "user_name_value_"+index;
   user_name_value.classList.add("p-2");
   user_name_value.contentEditable = true;
+  user_name_value.onfocus = function(){
+    if(!this.classList.contains("changed"))
+      this.classList.add("changed"); 
+  };
   user_name.appendChild(user_name_value);
   user_info.appendChild(user_name);
 
@@ -44,6 +50,11 @@ function loadUser(value, index, array){
     user_surname_value.innerHTML = value.surname;
   user_surname_value.classList.add("p-2");
   user_surname_value.contentEditable = true;
+  user_surname_value.id = "user_surname_value_"+index;
+  user_surname_value.onfocus = function(){
+    if(!this.classList.contains("changed"))
+      this.classList.add("changed"); 
+  };
   user_surname.appendChild(user_surname_value);
   user_info.appendChild(user_surname);
 
@@ -70,6 +81,10 @@ function loadUser(value, index, array){
   userList.appendChild(user);
 }
 
+function compareFunction(obj1, obj2){
+  return obj1.id-obj2.id;
+}
+
 function loadUsers(){
   $.ajax({
       url: serverURL + "/users",
@@ -77,7 +92,7 @@ function loadUsers(){
       dataType: 'json', // added data type
       success: function(res) {
           users = res;
-          //console.log(res);
+          users.sort(compareFunction);
           users.forEach(loadUser);
       }
   });
@@ -87,7 +102,7 @@ $( document ).ready(function() {
     loadUsers();
 });
 
-let dummyUser = {
+let dummyUser = {  
   "researcherId": JSON.parse(localStorage.getItem("RESEARCHER")).id,
   "name":"",
   "surname":""
@@ -135,4 +150,43 @@ function deleteUser(userObj, user){
     sendDeleteUser(user.id, userObj);
     modalShowButton.click();
   };  
+}
+
+function saveUser(value, index, array){
+  let id_input = document.getElementById("user_id_value_"+index);
+  let name_input = document.getElementById("user_name_value_"+index);
+  let surname_input = document.getElementById("user_surname_value_"+index);
+
+
+  let changes = {};
+  if (name_input.classList.contains("changed")){
+    changes.name = name_input.innerHTML; 
+  }  
+  if (surname_input.classList.contains("changed")){
+    changes.surname = surname_input.innerHTML; 
+  }  
+  console.log(changes);
+  if(Object.keys(changes).length === 0)
+    return;
+
+  $.ajax({
+      url: serverURL + "/users/" + parseInt(id_input.innerHTML),
+      type: 'PATCH',
+      dataType: 'json',
+      data: {"name": changes.name, "surname": changes.surname},
+      success: function(data, textStatus, xhr) {
+        if(xhr.status === 200){
+          if(changes.name)
+            name_input.classList.remove("changed");
+          if(changes.surname)
+            surname_input.classList.remove("changed");
+        } else {
+          window.alert("couldn't update user");
+        }
+      }
+    });
+}
+
+function saveUsers(){
+  userList.childNodes.forEach(saveUser);
 }

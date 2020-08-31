@@ -30,23 +30,22 @@ function authenticateUser(){
 		return
 	}
 
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", serverURL+"/authentication/"+username+"/"+password, true);
-
-	//Send the proper header information along with the request
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-	xhr.onreadystatechange = function() {
-	  if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-	      // Request finished. Do processing here.
-	      // console.log(xhr.response);
-	      let pageURL = "./navigation/index";
-		  document.getElementById("html_content").innerHTML='<object style="height:100%; width:100%; padding:0px;" class="container-fluid" type="text/html" data="'+pageURL+'.html" ></object>'
-		  localStorage.setItem("RESEARCHER", xhr.response); 
-	  } else if (this.readyState === XMLHttpRequest.DONE && this.status === 400) {
-	      // Request finished. Do processing here.
-	      window.alert(xhr.response);
-	  }
-	}
-  xhr.send();
+    $.ajax({
+      url: serverURL+"/authentication",
+      type: 'POST',
+      dataType: 'json',
+      data: {"username": username, "password": password},
+      success: function(data, textStatus, xhr) {
+        if(xhr.status === 200){
+	   	    let pageURL = "./navigation/index";
+		      document.getElementById("html_content").innerHTML='<object style="height:100%; width:100%; padding:0px;" class="container-fluid" type="text/html" data="'+pageURL+'.html" ></object>'
+		      localStorage.setItem("RESEARCHER", JSON.stringify(data));           
+        } else {
+  	       window.alert(data);
+        }
+      },
+      error: function (error) {
+        window.alert("Wrong Username and/or Password");
+      }
+    });
 }

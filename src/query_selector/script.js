@@ -76,17 +76,22 @@ function loadAnswer(value, index, array){
 }
 
 function loadQuery(){
-  let user_id = parseInt(document.getElementById("user_id_value").innerHTML);
+  page.innerHTML = "";
+  let user_id = parseInt(document.getElementById("user_id_value").innerHTML);  
+  //console.log(user_id);
   $.ajax({
     url: serverURL + "/answers/" + user_id,
     type: 'GET',
     dataType: 'json',
-    success: function(data, textStatus, xhr) {0
+    success: function(data, textStatus, xhr) {      
       if(xhr.status === 200){
         //console.log(data);
-        data.forEach(loadAnswer);
+        if(Object.keys(data).length === 0)
+          window.alert("no answers found");
+        else
+          data.forEach(loadAnswer);        
       } else {
-        window.alert("couldn't delete user");
+        window.alert("an error occured");
       }
     }
   });

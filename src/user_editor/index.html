@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../script.js" ></script>
+    <link rel="stylesheet" href="../styles.css" type="text/css">
     <script defer src="script.js" ></script>
-    <link rel="stylesheet" href="styles.css" type="text/css">
     <meta charset="utf-8">
-    <title>Login</title>
+    <title>User Editor</title>
     
   </head>
 <body style="background-color: #4b5257">
@@ -24,6 +24,9 @@
           <div id="user-list" class="list-group list-group-flush flex-column align-items-start"></div>
           <button type="button" class="btn btn-secondary mt-2" onclick="addUser()">
               add user
+          </button>
+          <button type="button" class="btn btn-info mt-2 float-right" onclick="saveUsers()">
+            save changes
           </button>
         </div>
 
