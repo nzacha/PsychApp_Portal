@@ -76,10 +76,10 @@ function loadAnswer(value, index, array){
 var query = null;
 function loadQuery(){
   page.innerHTML = "";
-  let user_id = parseInt(document.getElementById("user_id_value").innerHTML);  
-  //console.log(user_id);
+  code = document.getElementById("user_id_value").innerHTML;
+  console.log(code);
   $.ajax({
-    url: serverURL + "/answers/" + user_id + "/"+ JSON.parse(localStorage.getItem("RESEARCHER")).id,
+    url: serverURL + "/answers/"+code+"/"+ JSON.parse(localStorage.getItem("RESEARCHER")).id,
     type: 'GET',
     dataType: 'json',
     success: function(data, textStatus, xhr) {     
@@ -133,3 +133,9 @@ function downloadQuery(){
     document.getElementById('download').setAttribute('download', "user_info.csv");
     document.getElementById('download').click();
 }
+
+document.querySelector('span[contenteditable="true"]').addEventListener("paste", function(e) {
+        e.preventDefault();
+        var text = e.clipboardData.getData("text/plain");
+        document.execCommand("insertHTML", false, text);
+    });
