@@ -135,6 +135,12 @@ function loadResearcherInfo(){
 loadResearcherInfo();
 
 function saveResearcherInfo(){
+	if(document.getElementById("tests_time_interval").value * (document.getElementById("tests_per_day").value - 1) > 12){
+		val = parseInt(12 / (tests_per_day -1));
+		tests_time_interval = val;
+		document.getElementById("tests_time_interval").value = val;
+	}
+
 	var data = {};
 	if(emailField.value)
 		data.email = emailField.value;

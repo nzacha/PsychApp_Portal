@@ -8,7 +8,8 @@ function loadUser(value, index, array){
   index = ++userCount;
   let user = document.createElement("div");
   user.classList.add("bg-enabled");
-  user.classList.add("rounded-pill");
+  user.classList.add("well-rounded");
+  //user.classList.add("rounded-pill");
   user.classList.add("list-group-item");
   user.classList.add("mb-2");
   user.classList.add("w-100");
@@ -17,15 +18,23 @@ function loadUser(value, index, array){
   user_info.classList.add("row");
 
   let user_id = document.createElement("div");
-  user_id.classList.add("col");
-  user_id.classList.add("changed");
+  user_id.style = "display:none;";
   //user_id.innerHTML = "ID) ";
   let user_id_value = document.createElement("label");
   user_id_value.innerHTML = value.id;
   user_id_value.id = "user_id_value_"+index;
-  user_id_value.classList.add("changed");
   user_id.appendChild(user_id_value);
   user_info.appendChild(user_id);
+
+  let user_code = document.createElement("div");
+  user_code.classList.add("col");
+  user_code.classList.add("changed");
+  //user_id.innerHTML = "ID) ";
+  let user_code_value = document.createElement("label");
+  user_code_value.innerHTML = value.code;
+  user_code_value.classList.add("changed");
+  user_code.appendChild(user_code_value);
+  user_info.appendChild(user_code);
 
   let user_name = document.createElement("div");
   user_name.classList.add("col");
@@ -140,6 +149,7 @@ function addUser(){
     success: function(data, textStatus, xhr) {
       if(xhr.status === 200){
         dummyUser.id = data.id;
+        dummyUser.code = data.code;
         loadUser(dummyUser, userList.childElementCount);
       } else {
         window.alert("couldn't add user");
@@ -186,7 +196,7 @@ function deleteUser(userObj, user, deleteButton, nameInput, surnameInput){
   let modalTItle = document.getElementById("removeItemModalTitle");
   modalTItle.innerHTML = "Do you want to delete user " + user.id +"?";
   let modalBody = document.getElementById("removeItemModalBody");
-  modalBody.innerHTML = user.name+"\t"+user.surname;
+  modalBody.innerHTML = "ID: "+user.code+"</br>Name: "+user.name+"</br>Surname: "+user.surname;
   let modalAccept = document.getElementById("removeItemModalAccept");
   modalAccept.onclick = function(){
     sendDeleteUser(user.id, userObj, deleteButton, nameInput, surnameInput);

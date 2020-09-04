@@ -111,7 +111,7 @@ function clearData(node){
 	node.innerHTML=null;
 }
 
-var arrayHeader=["Question", "Answer", "Index"];
+var arrayHeader=["Index", "Question", "Answer"];
 function downloadQuery(){
     let delimiter = ",";
     let header = arrayHeader.join(delimiter) + '\n';
@@ -119,7 +119,7 @@ function downloadQuery(){
     let data = [];
     for(var i=0; i<query.length; i++){      
       answer = query[i];     
-      data.push([answer.question.question_text, answer.text, answer.index]);      
+      data.push([answer.index, answer.question.question_text, answer.text]);      
     }   
 
     let csv = header;

@@ -65,23 +65,23 @@ function loadQuestion(value, index, array){
 
   let question_id_container = document.createElement("div");
   question_id_container.style = "display: none;";
-  question_id_container.classList.add("input-group");
-  question_id_container.classList.add("mb-3");
+  //question_id_container.classList.add("input-group");
+  //question_id_container.classList.add("mb-3");
   let question_id_title_container = document.createElement("div");
-  question_id_title_container.classList.add("input-group-prepend");
-  question_id_title_container.style = "width: 70px;";
+  //question_id_title_container.classList.add("input-group-prepend");
+  //question_id_title_container.style = "width: 70px;";
   question_id_container.appendChild(question_id_title_container);
   let question_id_title = document.createElement("label");
-  question_id_title.classList.add("input-group-text");
-  question_id_title.classList.add("changed");
-  question_id_title.style = "width: 70px;";
-  question_id_title.innerHTML = "ID: ";
+  //question_id_title.classList.add("input-group-text");
+  //question_id_title.classList.add("changed");
+  //question_id_title.style = "width: 70px;";
+  //question_id_title.innerHTML = "ID: ";
   question_id_title_container.appendChild(question_id_title);
   let question_id_input = document.createElement("label");
   question_id_input.id = "question_id_"+index;
   question_id_input.innerHTML = value.id;
-  question_id_input.classList.add("form-control");
-  question_id_input.setAttribute("readonly", "readonly");
+  //question_id_input.classList.add("form-control");
+  //question_id_input.setAttribute("readonly", "readonly");
   question_id_container.appendChild(question_id_input);
 
   let question_text_container = document.createElement("div");
@@ -227,7 +227,7 @@ function loadQuestion(value, index, array){
   switch_container.classList.add("mb-2");
   let switch_title = document.createElement("span");
   switch_title.classList.add("ml-3");
-  switch_title.classList.add("mr-2");
+  switch_title.classList.add("mr-3");
   switch_title.innerHTML = "Horizontal? ";
   let switch_input = document.createElement("input");
   switch_input.id = "horizontal_orientation_"+index;
@@ -326,14 +326,15 @@ function addQuestionOption(question_options, data, index){
   question_text_container.classList.add("input-group");
   question_text_container.classList.add("mb-3");
   let question_text_title_container = document.createElement("div");
-  question_text_title_container.style = "width: 50px;";
+  //question_text_title_container.style = "width: 50px;";  
   question_text_title_container.classList.add("input-group-prepend");
   question_text_container.appendChild(question_text_title_container);
   
   let question_text_title = document.createElement("label");
   question_text_title.classList.add("input-group-text");
   question_text_title.classList.add("changed");
-  question_text_title.style = "width: 50px; display:none;";
+  question_text_title_container.style = "display:none;";
+  //question_text_title.style = "width: 50px;";
   question_text_title.innerHTML = data.id;
   question_text_title.id = "question_option_"+data.questionId+"_"+index;
   question_text_title_container.appendChild(question_text_title);
@@ -519,7 +520,7 @@ function saveQuestion(index){
     var option_input = document.getElementById("question_option_value_" + option_id.innerHTML);
     if(option_input.classList.contains("changed")){
       sendUpdateOption(option_input, option_id.innerHTML, option_input.value);
-      console.log(option_input.value);
+      //console.log(option_input.value);
     }
   }
 
