@@ -98,3 +98,30 @@ textarea:focus, input:focus {
   margin: 0px;
   padding: 0px;
 }
+
+.bg-disabled{
+  background-color: rgb(233,236,239);
+  opacity: 0.75;
+  border-color: gray;
+  border-width: 3px;
+}
+
+.bg-enabled{
+  //background-color: rgb(240, 240, 240);
+  opacity: 1;
+  border-color: gray;
+  border-width: 3px;
+}
+
+.well-rounded{
+  border-radius: 10px;
+}
+
+.strong-borders{
+  border-width: 3px;
+}
+
+.center{
+  margin-left: 50%;
+  margin-right: 50%;
+}

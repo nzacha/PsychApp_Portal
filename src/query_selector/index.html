@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="card col-centered border-primary rounded">
+  <div class="card col-centered border-primary well-rounded">
 
       <div class="card-header p-0">
           <div class="bg-info text-white text-center py-4">
@@ -59,13 +59,16 @@
 
               <button style="display:none;" class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Send</button>
               
-              <button class="btn btn-info mb-4" type="submit">Send</button>          
+              <button class="btn btn-info mb-2" type="submit">Send</button>          
               
-              <div class="container text-right">
-                <label id="query_result"></label>
+              <div>
+                  <a download id="download" hidden></a>
+                  <button id="query_download" class="btn btn-primary float-right mb-4 ml-3" style="display:none;" onclick="downloadQuery('download'); return false;"><i class="fas fa-arrow-alt-circle-down"></i></button>          
+                  <label id="query_result"  class="float-right"></label>
+                  <div class="spacer" style="clear: both;"></div>
               </div>
 
-              <div id="content">
+              <div id="content" class="container-fluid">
               	
               </div>
           </form>
