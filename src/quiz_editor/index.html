@@ -1,5 +1,15 @@
 <div class="container-fluid">
-  <div class="card col-centered border-primary well-rounded mb-4">
+
+  <div id="mySidenav" class="sidenav container-fluid px4">
+    <button type="button" class="btn btn-secondary my-2" onclick="addQuestion()">
+        add question
+    </button>
+    <button type="button" class="btn btn-info my-2 float-right" onclick="saveQuestions()">
+        save changes
+    </button>
+  </div>
+
+  <div class="card col-centered border-primary well-rounded mb-4" style="margin-bottom: 65px;">
 
       <div class="card-header p-0">
           <div class="bg-info text-white text-center py-4">
@@ -19,14 +29,8 @@
 	        <span>Current Quiz:</span>
 	      </div>
 
-	      <div id="quiz_editor" class="accordion"></div>
-        <button type="button" class="btn btn-secondary mt-3" onclick="addQuestion()">
-            add question
-        </button>
-
-        <button type="button" class="btn btn-info mt-3 float-right" onclick="saveQuestions()">
-            save changes
-        </button>
+	      <div id="quiz_editor" class="accordion">          
+        </div>
       </div>
 
   </div>
