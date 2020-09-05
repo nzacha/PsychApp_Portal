@@ -3,7 +3,7 @@
   //height: 200px; /* 100% Full-height */
   width: 100%; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
+  z-index: 10; /* Stay on top */
   bottom: 0; /* Stay at the bottom */
   left: 0;
   background-color: #111; /* Black*/
@@ -173,6 +173,11 @@ textarea:focus, input:focus {
 }
 
 .center{
-  margin-left: 50%;
-  margin-right: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vertical-center-contained{
+  margin-top: auto;
+  margin-bottom: auto; 
 }

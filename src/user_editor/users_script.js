@@ -27,8 +27,11 @@ function loadUser(value, index, array){
   user_info.appendChild(user_id);
 
   let user_code = document.createElement("div");
-  user_code.classList.add("col");
+  user_code.classList.add("col-sm-12");
+  user_code.classList.add("col-md-6");
+  user_code.classList.add("col-lg-3");
   user_code.classList.add("changed");
+  user_code.style = "text-align:center;"
   //user_id.innerHTML = "ID) ";
   let user_code_value = document.createElement("label");
   user_code_value.innerHTML = value.code;
@@ -37,7 +40,9 @@ function loadUser(value, index, array){
   user_info.appendChild(user_code);
 
   let user_name = document.createElement("div");
-  user_name.classList.add("col");
+  user_name.classList.add("col-sm-12");
+  user_name.classList.add("col-md-6");
+  user_name.classList.add("col-lg-3");
   user_name.style = "text-align:center;"
   //user_name.innerHTML = "Name: ";
   let user_name_value = document.createElement("span");
@@ -56,7 +61,9 @@ function loadUser(value, index, array){
   user_info.appendChild(user_name);
 
   let user_surname = document.createElement("div");
-  user_surname.classList.add("col");
+  user_surname.classList.add("col-sm-12");
+  user_surname.classList.add("col-md-6");
+  user_surname.classList.add("col-lg-3");
   user_surname.style = "text-align:center;"
   //user_surname.innerHTML = "Surname: ";
   let user_surname_value = document.createElement("span");
@@ -75,14 +82,18 @@ function loadUser(value, index, array){
   user_info.appendChild(user_surname);
 
   let delete_user = document.createElement("div");
-  delete_user.classList.add("col");
+  delete_user.classList.add("col-sm-12");
+  delete_user.classList.add("col-md-6");
+  delete_user.classList.add("col-lg-3");
+  delete_user.classList.add("d-flex");
+  delete_user.classList.add("justify-content-center");
   if(value.isActive){ 
     let delete_user_button = document.createElement("button");
     delete_user_button .innerHTML = "X";
     delete_user_button.setAttribute("type", "button");
     delete_user_button.classList.add("btn");
     delete_user_button.classList.add("btn-danger");
-    delete_user_button.classList.add("float-right");
+    //delete_user_button.classList.add("float-right");
     delete_user_button.setAttribute("data-toggle", "modal");
     delete_user_button.setAttribute("data-target", "#removeItemModal");
     delete_user_button.onclick = function(event){

@@ -211,19 +211,37 @@ function loadQuestion(value, index, array){
     value.question_options.sort(compareFunction);
   loadQuestionOptions(question_options_body, value.question_options);
 
-  let question_options_footer = document.createElement("div");
-  question_options_footer.classList.add("card-footer");
+  let question_options_footer_container = document.createElement("div");
+  question_options_footer_container.classList.add("card-footer");
 
+  let question_options_footer = document.createElement("div");
+  question_options_footer.classList.add("row");
+  question_options_footer.classList.add("justify-content-md-center");
+  question_options_footer_container.appendChild(question_options_footer);
+
+  let add_question_option_container = document.createElement("div"); 
+  add_question_option_container.classList.add("col-md-12");
+  add_question_option_container.classList.add("col-lg-auto");
+  add_question_option_container.classList.add("d-flex");
+  add_question_option_container.classList.add("justify-content-center");
+  add_question_option_container.classList.add("vertical-center-contained");
   let add_question_option = document.createElement("button");
+  add_question_option.classList.add("mb-2");
+  add_question_option.classList.add("ml-3");
   add_question_option.classList.add("btn");
   add_question_option.classList.add("btn-secondary");
   add_question_option.innerHTML="+";
   add_question_option.onclick = function(){
     sendAddQuestioOption(question_options_body, value.id, document.getElementById("question_options_body_list_"+index).childElementCount);
   };  
-  question_options_footer.appendChild(add_question_option);
+  add_question_option_container.appendChild(add_question_option);
+  question_options_footer.appendChild(add_question_option_container);
 
   let switch_container = document.createElement("span");
+  switch_container.classList.add("col-md-12");
+  switch_container.classList.add("col-lg-auto");
+  switch_container.classList.add("text-center");
+  switch_container.classList.add("vertical-center-contained");
   switch_container.classList.add("mb-2");
   let switch_title = document.createElement("span");
   switch_title.classList.add("ml-3");
@@ -246,6 +264,10 @@ function loadQuestion(value, index, array){
   question_options_footer.appendChild(switch_container);
 
   let switch_container2 = document.createElement("span");
+  switch_container2.classList.add("col-md-12");
+  switch_container2.classList.add("col-lg-auto");
+  switch_container2.classList.add("text-center");
+  switch_container2.classList.add("vertical-center-contained");
   switch_container2.classList.add("mb-2");
   let switch_title2 = document.createElement("span");
   switch_title2.classList.add("ml-3");
@@ -270,7 +292,7 @@ function loadQuestion(value, index, array){
 
   question_options.appendChild(question_options_header);
   question_options.appendChild(question_options_body);
-  question_options.appendChild(question_options_footer);
+  question_options.appendChild(question_options_footer_container);
   question_options_container.appendChild(question_options);
 
   question_body.appendChild(question_id_container);

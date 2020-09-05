@@ -130,7 +130,7 @@ function downloadQuery(){
     let csvData = new Blob([csv], {type: 'text/csv'});  
     var url = window.URL.createObjectURL(csvData);
     document.getElementById('download').href = url;
-    document.getElementById('download').setAttribute('download', "user_info.csv");
+    document.getElementById('download').setAttribute('download', "user_"+document.getElementById("user_id_value").innerHTML+"_answers.csv");
     document.getElementById('download').click();
 }
 
