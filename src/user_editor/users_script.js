@@ -180,7 +180,7 @@ function disable(node, deleteCol, nameInput, surnameInput, reason_for_exit){
   reason_label.innerHTML = reason_for_exit;
   deleteCol.appendChild(reason_label);
   deleteCol.classList.add("text-right");
-  deleteCol.classList.add("mr-1");  
+  //deleteCol.classList.add("mr-1");  
 }
 
 function sendDeleteUser(id, node, deleteButton, nameInput, surnameInput){

@@ -44,6 +44,7 @@ function loadAnswer(value, index, array){
   answer_id_title_container.appendChild(answer_id_title);
   let answer_id_input = document.createElement("label");
   answer_id_input.innerHTML = value.question.question_text;
+  answer_id_input.style = "overflow: auto;";
   answer_id_input.classList.add("form-control");
   answer_id_input.setAttribute("readonly", "readonly");
   answer_id_container.appendChild(answer_id_input);
@@ -63,6 +64,7 @@ function loadAnswer(value, index, array){
   let answer_text_input = document.createElement("label");
   answer_text_input.style = "text-align: center;";
   answer_text_input.innerHTML = value.text;
+  answer_text_input.style = "overflow: auto;";
   answer_text_input.classList.add("form-control");
   answer_text_input.setAttribute("readonly", "readonly");
   answer_text_container.appendChild(answer_text_input);
