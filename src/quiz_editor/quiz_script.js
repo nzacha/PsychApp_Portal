@@ -440,9 +440,11 @@ function addQuestion(){
   sendAddQuestion();
 }
 function sendAddQuestion(){
-  let researcher_id = JSON.parse(localStorage.getItem("RESEARCHER")).id;
+  let project_id = getProjectId();
+  if(project_id === undefined)
+    return;
   $.ajax({
-    url: serverURL + "/questions/" + researcher_id,
+    url: serverURL + "/questions/" + project_id,
     type: 'POST',
     dataType: 'json',
     success: function(data, textStatus, xhr) {
@@ -457,9 +459,12 @@ function sendAddQuestion(){
 }
 
 function loadQuiz(){
-  let researcher_id = JSON.parse(localStorage.getItem("RESEARCHER")).id;
+  id = getProjectId();
+  if(id === undefined)
+    return;
+  questionCount = 0;
   $.ajax({
-    url: serverURL + "/questions/" + researcher_id,
+    url: serverURL + "/questions/" + id,
     type: 'GET',
     dataType: 'json',
     success: function(data, textStatus, xhr) {
@@ -473,7 +478,6 @@ function loadQuiz(){
     }
   });
 }
-loadQuiz();
 
 function removeQuestion(value, index, questionObj){
   let modal = document.getElementById("removeItemModal");
@@ -595,4 +599,14 @@ function saveQuestions(){
 		if(id_input)
 			saveQuestion(i);
 	}
+}
+
+$( document ).ready(function() {
+  loadQuiz();
+});
+
+projectSelector.onchange = function(){
+  projectId = this.value;
+  page.innerHTML = "";
+  loadQuiz();
 }

@@ -79,9 +79,13 @@ var query = null;
 function loadQuery(){
   page.innerHTML = "";
   code = document.getElementById("user_id_value").innerHTML;
-  console.log(code);
+  //console.log(code);
+  id = getProjectId();
+  if( id==undefined )
+    return;
   $.ajax({
-    url: serverURL + "/answers/"+code+"/"+ JSON.parse(localStorage.getItem("RESEARCHER")).id,
+    //url: serverURL + "/answers/"+code+"/"+ JSON.parse(localStorage.getItem("RESEARCHER")).id,
+    url: serverURL + "/answers/"+code+"/"+ id,
     type: 'GET',
     dataType: 'json',
     success: function(data, textStatus, xhr) {     

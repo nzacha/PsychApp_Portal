@@ -88,23 +88,9 @@ function loadUser(value, index, array){
   delete_user.classList.add("d-flex");
   delete_user.classList.add("justify-content-center");
   if(value.isActive){ 
-    let delete_user_button = document.createElement("button");
-    delete_user_button .innerHTML = "X";
-    delete_user_button.setAttribute("type", "button");
-    delete_user_button.classList.add("btn");
-    delete_user_button.classList.add("btn-danger");
-    //delete_user_button.classList.add("float-right");
-    delete_user_button.setAttribute("data-toggle", "modal");
-    delete_user_button.setAttribute("data-target", "#removeItemModal");
-    delete_user_button.onclick = function(event){
-      event.stopPropagation();
-      modalShowButton.click();
-      deleteUser(user, value, delete_user_button, user_name_value, user_surname_value);
-      //modalShowButton.click();
-    }
-    delete_user.appendChild(delete_user_button);
+    enable(user, value, delete_user, user_name_value, user_surname_value, value.reason_for_exit);
   }else{
-    disable(user, delete_user, user_name_value, user_surname_value, value.reason_for_exit);
+    disable(user, value, delete_user, user_name_value, user_surname_value, value.reason_for_exit);
   }
   user_info.appendChild(delete_user);
 
@@ -119,27 +105,24 @@ function compareFunction(obj1, obj2){
 }
 
 function loadUsers(){
+  id = getProjectId();
+  if(id === undefined)
+    return;
   $.ajax({
-      url: serverURL + "/users/MyUsers/"+JSON.parse(localStorage.getItem("RESEARCHER")).id,
+      url: serverURL + "/users/MyUsers/" + id,
       type: 'GET',
       dataType: 'json', // added data type
       success: function(res) {
           users = res;
-          //console.log(users);
           users.sort(compareFunction);
           users.forEach(loadUser);
       }
   });
 }
 
-$( document ).ready(function() {
-    loadUsers();
-});
-
 researcher = JSON.parse(localStorage.getItem("RESEARCHER"));
 
 dummyUser = {  
-  "researcherId": researcher.id,
   "name":"",
   "surname":"",
   "isActive": true,  
@@ -151,6 +134,9 @@ dummyUser = {
   "automatic_termination": researcher.automatic_termination,
 }
 function addUser(){
+  dummyUser.projectId = getProjectId();
+  if( dummyUser.projectId===undefined )
+    return;
   //console.log(dummyUser);
   $.ajax({
     url: serverURL + "/users",
@@ -169,7 +155,49 @@ function addUser(){
   });
 }
 
-function disable(node, deleteCol, nameInput, surnameInput, reason_for_exit){
+function enable(node, value, deleteCol, nameInput, surnameInput, reason_for_exit){    
+    node.classList.remove("bg-disabled");
+    node.classList.add("bg-enabled");  
+
+    nameInput.contentEditable = true;
+    surnameInput.contentEditable = true;
+
+    deleteCol.innerHTML="";
+
+    let delete_user_button = document.createElement("button");
+    delete_user_button .innerHTML = "X";
+    delete_user_button.setAttribute("type", "button");
+    delete_user_button.classList.add("btn");
+    delete_user_button.classList.add("btn-danger");
+    //delete_user_button.classList.add("float-right");
+    delete_user_button.setAttribute("data-toggle", "modal");
+    delete_user_button.setAttribute("data-target", "#removeItemModal");
+    delete_user_button.onclick = function(event){
+      event.stopPropagation();
+      modalShowButton.click();
+      deleteUser(node, value, delete_user_button, nameInput, surnameInput, reason_for_exit);
+      //modalShowButton.click();
+    }
+    deleteCol.appendChild(delete_user_button);
+}
+
+function activateUser(userObj, user, activationButton, nameInput, surnameInput){
+  let reason = "";
+  $.ajax({
+      url: serverURL + "/users/activate/" + id,
+      type: 'GET',
+      dataType: 'json',
+      success: function(data, textStatus, xhr) {
+        if(xhr.status === 200){
+          enable(userObj, user, activationButton, nameInput, surnameInput)
+        } else {
+          window.alert("couldn't activate user");
+        }
+      }
+  });
+}
+
+function disable(node, value, deleteCol, nameInput, surnameInput, reason_for_exit){
   node.classList.remove("bg-enabled");
   node.classList.add("bg-disabled");    
 
@@ -178,12 +206,24 @@ function disable(node, deleteCol, nameInput, surnameInput, reason_for_exit){
 
   let reason_label = document.createElement("label");
   reason_label.innerHTML = reason_for_exit;
+  reason_label.setAttribute("type", "button");
+  reason_label.classList.add("changed");
+  //reason_label.classList.add("btn");
+  //reason_label.classList.add("btn-warning");
+  reason_label.setAttribute("data-toggle", "modal");
+  reason_label.setAttribute("data-target", "#removeItemModal");
+  reason_label.onclick = function(event){
+    event.stopPropagation();
+    //modalShowButton.click();
+    activateUser(node, value, deleteCol, nameInput, surnameInput, reason_for_exit);
+    //modalShowButton.click();
+  }
+
   deleteCol.appendChild(reason_label);
   deleteCol.classList.add("text-right");
-  //deleteCol.classList.add("mr-1");  
 }
 
-function sendDeleteUser(id, node, deleteButton, nameInput, surnameInput){
+function sendDeleteUser(id, node, value, deleteButton, nameInput, surnameInput, reason_for_exit){
   let reason = "Deleted by Me";
   $.ajax({
       url: serverURL + "/users/" + id,
@@ -193,24 +233,24 @@ function sendDeleteUser(id, node, deleteButton, nameInput, surnameInput){
       success: function(data, textStatus, xhr) {
         if(xhr.status === 200){
           //node.parentNode.removeChild(node);
-          disable(node, deleteButton.parentNode, nameInput, surnameInput, reason);
+          disable(node, value, deleteButton.parentNode, nameInput, surnameInput, reason);
           deleteButton.parentNode.removeChild(deleteButton);
         } else {
-          window.alert("couldn't delete user");
+          window.alert("couldn't disable user");
         }
       }
   });
 }
 
-function deleteUser(userObj, user, deleteButton, nameInput, surnameInput){
+function deleteUser(node, value, deleteButton, nameInput, surnameInput, reason_for_exit){
   let modal = document.getElementById("removeItemModal");
   let modalTItle = document.getElementById("removeItemModalTitle");
-  modalTItle.innerHTML = "Do you want to delete user " + user.id +"?";
+  modalTItle.innerHTML = "Do you want to delete user " + value.id +"?";
   let modalBody = document.getElementById("removeItemModalBody");
-  modalBody.innerHTML = "ID: "+user.code+"</br>Name: "+user.name+"</br>Surname: "+user.surname;
+  modalBody.innerHTML = "ID: "+value.code+"</br>Name: "+value.name+"</br>Surname: "+value.surname;
   let modalAccept = document.getElementById("removeItemModalAccept");
   modalAccept.onclick = function(){
-    sendDeleteUser(user.id, userObj, deleteButton, nameInput, surnameInput);
+    sendDeleteUser(value.id, node, value, deleteButton, nameInput, surnameInput);
     modalShowButton.click();
   };  
 }
@@ -267,3 +307,13 @@ function openNav() {
 function closeNav() {
   document.getElementById("mySidenav").style.height = "0";
 }
+
+projectSelector.onchange = function(){
+  projectId = this.value;
+  userList.innerHTML = "";
+  loadUsers();
+}
+
+$( document ).ready(function() {
+    loadUsers();
+});

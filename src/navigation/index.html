@@ -32,18 +32,27 @@
           <a class="dropdown-item" href="#query_selector">Search by User ID</a>
         </div>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#quiz_editor" onclick="loadHTMLFrom('../query_selector/index', '../query_selector/query_script');">Query Selector <span class="sr-only">(current)</span></a>
+      <li class="nav-item active mr-2">
+        <a class="nav-link" href="#quiz_editor" onclick="loadHTMLFrom('html-content', '../query_selector/index', '../query_selector/query_script');">Query Selector <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#user_editor" onclick="loadHTMLFrom('../user_editor/index', '../user_editor/users_script');">User Editor</a>
+      <li class="nav-item mr-2">
+        <a class="nav-link" href="#user_editor" onclick="loadHTMLFrom('html-content', '../user_editor/index', '../user_editor/users_script');">User Editor</a>
       </li>       
-      <li class="nav-item">
-        <a class="nav-link" href="#quiz_editor" onclick="loadHTMLFrom('../quiz_editor/index', '../quiz_editor/quiz_script');">Quiz Editor <span class="sr-only">(current)</span></a>
+      <li class="nav-item mr-2">
+        <a class="nav-link" href="#quiz_editor" onclick="loadHTMLFrom('html-content', '../quiz_editor/index', '../quiz_editor/quiz_script');">Quiz Editor <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#account_editor" onclick="loadHTMLFrom('../account_editor/index', '../account_editor/account_script');">Account / Study Editor</a>
+      <li class="nav-item mr-2">
+        <a class="nav-link" href="#account_editor" onclick="loadHTMLFrom('html-content', '../account_editor/index', '../account_editor/account_script');">Account / Study Editor</a>
       </li>
+      <li id="project_manager" class="nav-item mr-2" style="display: none;">
+        <a class="nav-link" href="#project_manager" onclick="loadHTMLFrom('html-content', '../project_manager/index', '../project_manager/project_script');">Project Manager</a>
+      </li>
+      <li id="researcher_manager" class="nav-item mr-2" style="display: none;">
+        <a class="nav-link" href="#researcher_manager" onclick="loadHTMLFrom('html-content', '../researcher_manager/index', '../researcher_manager/researcher_script');">Researcher Manager</a>
+      </li>
+      <select class="mdb-select rounded" id="project_selector">
+        <option disabled>Choose a project</option>
+      </select>
     </ul>
   </div>
 </nav>

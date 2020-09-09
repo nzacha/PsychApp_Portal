@@ -19,12 +19,12 @@ const serverURL = "http://109.110.252.231:5050";
 var researcher;
 
 function authenticateUser(){
-	let username = usernameField.value;
+	username = usernameField.value;
 	if(username === ""){
 		window.alert("Please provide an email");
 		return
 	}
-	let password = passwordField.value;
+	password = passwordField.value;
 	if(password === ""){
 		window.alert("Please provide a password");
 		return
@@ -37,9 +37,10 @@ function authenticateUser(){
       data: {"username": username, "password": password},
       success: function(data, textStatus, xhr) {
         if(xhr.status === 200){
-	   	    let pageURL = "./navigation/index";
+          let pageURL;
+  	      pageURL = "./navigation/index";
 		      document.getElementById("html_content").innerHTML='<object style="height:100%; width:100%; padding:0px;" class="container-fluid" type="text/html" data="'+pageURL+'.html" ></object>'
-		      localStorage.setItem("RESEARCHER", JSON.stringify(data));           
+		      localStorage.setItem("RESEARCHER", JSON.stringify(data));                               
         } else {
   	       window.alert(data);
         }
