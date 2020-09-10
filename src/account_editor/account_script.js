@@ -85,13 +85,20 @@ function loadResearcherInfo(){
 }
 
 function loadProject(value, index, array){
-	index = getProjectIndex();
-	if(index=="")
+	index = getProjectIndex();	
+	if(index===undefined){
+  		//window.alert("Please select a valid project");
 		return;
+	}
 	project = researcher.projects[index];
 
-	if(project.description)
+	if(project.description){
 		descriptionField.placeholder = project.description;
+		descriptionField.value = null;
+	}else{
+		descriptionField.placeholder = "No description Available";
+		descriptionField.value = null;
+	}
 	descriptionField.onfocus = function(){
 	    if(!this.classList.contains("changed"))
 	      this.classList.add("changed"); 
@@ -172,8 +179,10 @@ function saveProjectInfo(){
 		return;
 	//console.log(data);
 	id = getProjectId();
-	if( id===undefined )
+	if( id===undefined ){
+	  	window.alert("Please select a valid project");
 		return;
+	}
 	$.ajax({
       url: serverURL + "/projects/" + id,
       type: 'PATCH',

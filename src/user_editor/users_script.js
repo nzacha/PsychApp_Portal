@@ -106,8 +106,10 @@ function compareFunction(obj1, obj2){
 
 function loadUsers(){
   id = getProjectId();
-  if(id === undefined)
+  if(id === undefined){
+    //window.alert("Please select a valid project");
     return;
+  }
   $.ajax({
       url: serverURL + "/users/MyUsers/" + id,
       type: 'GET',
@@ -115,7 +117,7 @@ function loadUsers(){
       success: function(res) {
           users = res;
           users.sort(compareFunction);
-          users.forEach(loadUser);
+          users.forEach(loadUser);  
       }
   });
 }
@@ -135,8 +137,10 @@ dummyUser = {
 }
 function addUser(){
   dummyUser.projectId = getProjectId();
-  if( dummyUser.projectId===undefined )
+  if( dummyUser.projectId===undefined ){
+    window.alert("Please select a valid project");
     return;
+  }
   //console.log(dummyUser);
   $.ajax({
     url: serverURL + "/users",
@@ -184,11 +188,12 @@ function enable(node, value, deleteCol, nameInput, surnameInput, reason_for_exit
 function activateUser(userObj, user, activationButton, nameInput, surnameInput){
   let reason = "";
   $.ajax({
-      url: serverURL + "/users/activate/" + id,
+      url: serverURL + "/users/activate/" + user.id,
       type: 'GET',
       dataType: 'json',
       success: function(data, textStatus, xhr) {
         if(xhr.status === 200){
+          //console.log(data);
           enable(userObj, user, activationButton, nameInput, surnameInput)
         } else {
           window.alert("couldn't activate user");

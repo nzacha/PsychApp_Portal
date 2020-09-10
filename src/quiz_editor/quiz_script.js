@@ -441,8 +441,10 @@ function addQuestion(){
 }
 function sendAddQuestion(){
   let project_id = getProjectId();
-  if(project_id === undefined)
+  if(project_id === undefined){
+    window.alert("Please select a valid project");
     return;
+  }
   $.ajax({
     url: serverURL + "/questions/" + project_id,
     type: 'POST',
@@ -460,8 +462,10 @@ function sendAddQuestion(){
 
 function loadQuiz(){
   id = getProjectId();
-  if(id === undefined)
+  if(id === undefined){
+    //window.alert("Please select a valid project");
     return;
+  }
   questionCount = 0;
   $.ajax({
     url: serverURL + "/questions/" + id,

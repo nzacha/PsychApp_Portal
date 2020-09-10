@@ -75,14 +75,20 @@ function loadAnswer(value, index, array){
   page.appendChild(answer_card);
 }
 
+function compareFunction(obj1, obj2){
+  return obj2.id-obj1.id;
+}
+
 var query = null;
 function loadQuery(){
   page.innerHTML = "";
   code = document.getElementById("user_id_value").innerHTML;
   //console.log(code);
   id = getProjectId();
-  if( id==undefined )
+  if( id==undefined ){
+    window.alert("Please select a valid project");
     return;
+  }
   $.ajax({
     //url: serverURL + "/answers/"+code+"/"+ JSON.parse(localStorage.getItem("RESEARCHER")).id,
     url: serverURL + "/answers/"+code+"/"+ id,
@@ -93,11 +99,12 @@ function loadQuery(){
       if(xhr.status === 200){
         //console.log(data);
         document.getElementById("query_result").innerHTML = Object.keys(data).length + " results found";
-        query = data;
+        query = data;        
         if(Object.keys(query).length === 0){          
           setVisible("query_download", false);
           //window.alert("no answers found");
-        }else{          
+        }else{       
+          query.sort(compareFunction);   
           setVisible("query_download", true);          
           query.forEach(loadAnswer);        
         }

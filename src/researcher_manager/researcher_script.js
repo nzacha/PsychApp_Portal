@@ -53,13 +53,14 @@ function sendDeleteResearcher(id, node){
 function loadResearcher(value, index, array){
   let container = document.createElement("div");
   container.classList.add("card");
-  container.classList.add("mb-2");
+  container.classList.add("mt-2");
   container.classList.add("p-2");
 
   let container_header = document.createElement("div");
   container_header.classList.add("card-header");
 
   let button = document.createElement("button");
+  button.classList.add("ml-2");
   button.classList.add("btn");
   button.classList.add("btn-danger");
   button.classList.add("float-right");
@@ -74,10 +75,18 @@ function loadResearcher(value, index, array){
   container.appendChild(container_header);
 
   let researcherName = document.createElement("span");
-  researcherName.innerHTML = "Researcher email: ";  
+  researcherName.innerHTML = "Researcher";  
+  researcherName.style = "overflow: auto;"
   researcherName.classList.add("mr-2");
   researcherName.classList.add("changed");
+  container_header.appendChild(researcherName);
+  
+  let container_body = document.createElement("div");
+  container_body.classList.add("card-body");
+  container.appendChild(container_body);
+
   let researcherNameInput = document.createElement("span");
+  researcherNameInput.classList.add("mt-2");
   researcherNameInput.innerHTML = value.email;
   researcherNameInput.contentEditable = true;
   researcherNameInput.onblur = function(){ 
@@ -95,8 +104,7 @@ function loadResearcher(value, index, array){
     }
   });
   }
-  researcherName.appendChild(researcherNameInput);
-  container_header.appendChild(researcherName);
+  container_body.appendChild(researcherNameInput);
 
   researcher_content.appendChild(container);
 }

@@ -61,15 +61,19 @@ function updateProjectSelector(){
 updateProjectSelector();
 
 function getProjectId(){
-
   index = document.getElementById("project_selector").value;
-  if(index == "")
+  if(index == ""){
   	return;
+  }
   return researcher.projects[index].id;
 }
 
 function getProjectIndex(){
-  return document.getElementById("project_selector").value;
+  index = document.getElementById("project_selector").value;
+  if(index == ""){
+  	return;
+  }	
+  return index;
 }
 
 window.onload = function() {

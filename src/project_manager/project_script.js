@@ -19,14 +19,32 @@ function sendDeleteLink(node, researcherId, projectId){
 function addResearcher(value, projectId, node){
   let container = document.createElement("div");
   container.classList.add("container");
+  container.classList.add("list-group-item");
   container.classList.add("p-1");
+  container.classList.add("my-2");
+
 
   let title_container = document.createElement("div");
+  title_container.classList.add("row");
+  title_container.classList.add("m-1");
+  title_container.classList.add("bg-enabled");
+  title_container.classList.add("well-rounded");
 
-  let researcher = document.createElement("label");
-  researcher.innerHTML = value.email;    
+  let researcher_container = document.createElement("div");
+  researcher_container.classList.add("col-9");
+  researcher_container.classList.add("p-0");
+  let researcher = document.createElement("span");
+  researcher.classList.add("mx-1");
+  researcher.classList.add("p-0");
+  researcher.innerHTML = value.email; 
+  researcher.style = "overflow: auto;";
+  researcher_container.appendChild(researcher);
+
+  let buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("col-3");
+  buttonContainer.classList.add("p-0");
   let deleteButton = document.createElement("button");
-  deleteButton.classList.add("button");
+  //deleteButton.classList.add("button");
   deleteButton.classList.add("btn");
   deleteButton.classList.add("btn-danger");
   deleteButton.classList.add("float-right");
@@ -34,8 +52,10 @@ function addResearcher(value, projectId, node){
   deleteButton.onclick = function(){
     sendDeleteLink(container, value.id, projectId);
   }
-  title_container.appendChild(researcher);
-  title_container.appendChild(deleteButton);
+  buttonContainer.appendChild(deleteButton);
+
+  title_container.appendChild(researcher_container);
+  title_container.appendChild(buttonContainer);
   container.appendChild(title_container);
 
   node.insertBefore(container, node.firstChild);
@@ -112,7 +132,7 @@ function loadProject(value, index, array){
       if(xhr.status === 200){
         //console.log(data);        
       } else {
-        window.alert("couldn't delete project");
+        window.alert("couldn't update project");
       }
     }
   });
@@ -158,7 +178,7 @@ function addModalButton(modalBody, value, projectContainer, projectId){
   let button = document.createElement("div");
   button.classList.add("m-1");
   button.classList.add("btn");
-  button.classList.add("btn-primary");
+  button.classList.add("btn-info");
   button.classList.add("option");
   button.innerHTML = value.email;
   button.onclick = function() {
@@ -169,9 +189,12 @@ function addModalButton(modalBody, value, projectContainer, projectId){
 
 function addResearcherButton(node, projectId){
   let container = document.createElement("div");
+  container.classList.add("container");
+  container.classList.add("p-1");
+  container.classList.add("my-1");
   let button = document.createElement("button");
   button.classList.add("btn");
-  button.classList.add("btn-primary");
+  button.classList.add("btn-info");
   button.innerHTML = "+";
   button.onclick = function(){    
     $.ajax({
