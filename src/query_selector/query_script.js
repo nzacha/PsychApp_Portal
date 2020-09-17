@@ -124,7 +124,7 @@ function clearData(node){
 	node.innerHTML=null;
 }
 
-var arrayHeader=["Index", "Question", "Answer"];
+var arrayHeader=["Index", "Date", "Time", "Question", "Answer"];
 function downloadQuery(){
     let delimiter = ",";
     let header = arrayHeader.join(delimiter) + '\n';
@@ -132,7 +132,10 @@ function downloadQuery(){
     let data = [];
     for(var i=0; i<query.length; i++){      
       answer = query[i];     
-      data.push([answer.index, answer.question.question_text, answer.text]);      
+      date = new Date(answer.createdAt);
+      dateString = date.getDay() +"-"+ date.getMonth() +"-"+ date.getFullYear();
+      timeString = date.getHours()+":"+date.getMinutes();
+      data.push(['"'+answer.index+'"', '"'+dateString+'"', '"'+timeString+'"', '"'+answer.question.question_text+'"', '"'+answer.text+'"']);      
     }   
 
     let csv = header;
