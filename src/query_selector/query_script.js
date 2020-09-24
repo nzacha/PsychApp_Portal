@@ -79,6 +79,10 @@ function compareFunction(obj1, obj2){
   return obj2.id-obj1.id;
 }
 
+function compareFunction2(obj1, obj2){
+  return obj1.id-obj2.id;
+}
+
 var query = null;
 function loadQuery(){
   page.innerHTML = "";
@@ -129,11 +133,12 @@ function downloadQuery(){
     let delimiter = ",";
     let header = arrayHeader.join(delimiter) + '\n';
     
+  	query.sort(compareFunction2);
     let data = [];
     for(var i=0; i<query.length; i++){      
       answer = query[i];     
       date = new Date(answer.createdAt);
-      dateString = date.getDay() +"-"+ date.getMonth() +"-"+ date.getFullYear();
+      dateString = date.getDate() +"-"+ date.getMonth() +"-"+ date.getFullYear();
       timeString = date.getHours()+":"+date.getMinutes();
       data.push(['"'+answer.index+'"', '"'+dateString+'"', '"'+timeString+'"', '"'+answer.question.question_text+'"', '"'+answer.text+'"']);      
     }   
