@@ -215,8 +215,14 @@ function saveResearcherInfo(){
 	var data = {};
 	if(emailField.value)
 		data.email = emailField.value;
-	if(passwordField.value)
-		data.password = passwordField.value;
+	if(passwordField.value){
+	    if (confirm("Are you sure you want to change your password?\n")) {
+			data.password = passwordField.value;
+		} else {		
+	      	passwordField.value = null;
+			passwordField.classList.remove("changed");
+		}
+	}
 	if(nameField.value)
 		data.name = nameField.value;
 	if(surnameField.value)
@@ -241,8 +247,7 @@ function saveResearcherInfo(){
 				emailField.classList.remove("changed");
           	}
 			if(passwordField.value){
-				passwordField.placeholder = passwordField.value;
-				passwordField.value = null;
+		      	passwordField.value = null;
 				passwordField.classList.remove("changed");
           	}
 			if(nameField.value){

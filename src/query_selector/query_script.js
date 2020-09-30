@@ -148,11 +148,21 @@ function downloadQuery(){
         csv += array.join(delimiter)+"\n";
     });    
 
-    let csvData = new Blob([csv], {type: 'text/csv'});  
-    var url = window.URL.createObjectURL(csvData);
+    var encoded = new TextEncoder("windows-1252",{ NONSTANDARD_allowLegacyEncoding: true }).encode(csv);
+
+    //download encoded
+    document.getElementById('download').href = "data:text/csv;charset=utf-8,%EF%BB%BF"+encodeURIComponent(csv);
+    document.getElementById('download').setAttribute('download', "user_"+document.getElementById("user_id_value").innerHTML+"_answers.csv");
+    document.getElementById('download').click();
+
+    /*
+    //download utf-8 csv
+    csvData = new Blob([csv], {type: 'text/csv'}); 
+    url = window.URL.createObjectURL(csvData);
     document.getElementById('download').href = url;
     document.getElementById('download').setAttribute('download', "user_"+document.getElementById("user_id_value").innerHTML+"_answers.csv");
     document.getElementById('download').click();
+    */
 }
 
 document.querySelector('span[contenteditable="true"]').addEventListener("paste", function(e) {
